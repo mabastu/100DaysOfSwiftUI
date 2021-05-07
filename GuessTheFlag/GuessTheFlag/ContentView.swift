@@ -13,7 +13,10 @@ struct ContentView: View {
     @State private var scoreTitle = ""
     @State private var correctAnswer = Int.random(in: 0...2)
     @State private var score = 0
-    @State private var selectedFlag = 0
+    @State private var wrongFlag = 0
+    @State private var isRotating = false
+    @State private var isWrong = false
+    @State private var opcityValue: Double = 1
     
     var body: some View {
         ZStack {
@@ -39,6 +42,9 @@ struct ContentView: View {
                             .renderingMode(.original)
                             .flagImage()
                     })
+                    .rotationEffect(isRotating && item == correctAnswer ? .degrees(360) : .degrees(.zero),anchor: .center)
+                    .opacity(isWrong && wrongFlag != item ? 0 : 1)
+
                     
                 }
                 Text("Score: \(score)")
@@ -48,7 +54,7 @@ struct ContentView: View {
             }
         }
         .alert(isPresented: $showingScore , content: {
-            Alert(title: Text(scoreTitle), message: Text("That’s the flag of \(countries[selectedFlag])."), dismissButton: .default(Text("Continue")) {
+            Alert(title: Text(scoreTitle), message: Text("That’s the flag of \(countries[wrongFlag])."), dismissButton: .default(Text("Continue")) {
                 askQuestion()
             })
         })
@@ -58,20 +64,28 @@ struct ContentView: View {
         if number == correctAnswer {
             scoreTitle = "Correct"
             score += 1
-            countries.shuffle()
+            withAnimation {
+                isRotating.toggle()
+            }
+            askQuestion()
         } else {
             scoreTitle = "Wrong"
             showingScore = true
             if score > 0 {
                 score -= 1
             }
-            selectedFlag = number
+            withAnimation(.default) {
+                isWrong.toggle()
+                opcityValue = 0
+            }
+            wrongFlag = number
         }
     }
     
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        isWrong = false
     }
 }
 
