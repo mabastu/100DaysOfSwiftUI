@@ -96,3 +96,12 @@
   * What you learned
   * Key points
   * Challenge
+* `Day 36 - Project 7, part 1`
+  * iExpense: Introduction
+  * Why @State only works with structs
+  * Sharing SwiftUI state with @ObservedObject
+  * Showing and hiding views
+  * Deleting items using onDelete()
+  * Storing user settings with UserDefaults
+  * Archiving Swift objects with Codable
+
