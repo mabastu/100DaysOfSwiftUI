@@ -104,4 +104,13 @@
   * Deleting items using onDelete()
   * Storing user settings with UserDefaults
   * Archiving Swift objects with Codable
+* `Day 37 - Project 7, part 2`
+  * Building a list we can delete from
+  * Working with Identifiable items in SwiftUI
+  * Sharing an observed object with a new view
+  * Making changes permanent with UserDefaults
+  * Final polish
+* `Day 38 - Project 7, part 3`
+  * Wrap up
+  * Review for Project 7: iExpense
 
